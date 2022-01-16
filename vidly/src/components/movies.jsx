@@ -4,9 +4,9 @@ import { getMovies } from '../services/fakeMovieService';
 import { getGenres } from '../services/fakeGenreService';
 import { paginate } from '../utils/paginate';
 
-import Like from './common/like'
 import Pagination from './common/pagination';
 import ListGroup from './common/listGroup';
+import MoviesTable from './moviesTable';
 
 class Movies extends Component {
   state = {
@@ -33,38 +33,12 @@ class Movies extends Component {
     return (
       <div className='row'>
         <div className="col-2">
-          <ListGroup
-            items={genres}
-            selectedItem={selectedGenre}
-            onItemSelect={this.handleGenreSelect}
+          <ListGroup items={genres} selectedItem={selectedGenre} onItemSelect={this.handleGenreSelect}
           />
         </div>
         <div className="col">
           <p>Showing {filtered.length} movies in the database.</p>
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Title</th>
-                <th>Genre</th>
-                <th>Stock</th>
-                <th>Rate</th>
-                <th></th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {movies.map(movie => (
-                <tr key={movie._id}>
-                  <td>{movie.title}</td>
-                  <td>{movie.genre.name}</td>
-                  <td>{movie.numberInStock}</td>
-                  <td>{movie.dailyRentalRate}</td>
-                  <td><Like onClick={() => this.handleLike(movie)} liked={movie.liked} /></td>
-                  <td><button onClick={() => this.handleDelete(movie)} className="btn btn-danger btn-sm">Delete</button></td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <MoviesTable movies={movies} onDelete={this.handleDelete} onLike={this.handleLike} />
           <Pagination itemsCount={filtered.length} pageSize={pageSize} currentPage={currentPage} onPageChange={this.handlePageChange} />
         </div>
         
