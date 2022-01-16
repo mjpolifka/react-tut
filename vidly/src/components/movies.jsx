@@ -6,11 +6,12 @@ import Pagination from './common/pagination';
 class Movies extends Component {
   state = {
     movies: getMovies(),
-    pageSize: 10
+    pageSize: 4,
+    currentPage: 1
   }
 
   render() { 
-    const { movies, pageSize } = this.state;
+    const { movies, pageSize, currentPage } = this.state;
     const count = movies.length;
     if (count === 0) return <p>There are no movies in the database.</p>;
     return (
@@ -40,7 +41,7 @@ class Movies extends Component {
             ))}
           </tbody>
         </table>
-        <Pagination itemsCount={count} pageSize={pageSize} onPageChange={this.handlePageChange} />
+        <Pagination itemsCount={count} pageSize={pageSize} currentPage={currentPage} onPageChange={this.handlePageChange} />
       </React.Fragment>
     );
   }
@@ -59,7 +60,7 @@ class Movies extends Component {
   }
 
   handlePageChange = (page) => {
-    console.log(page);
+    this.setState({currentPage: page})
   }
 }
  
