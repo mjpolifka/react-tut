@@ -1,7 +1,5 @@
-import propTypes from "prop-types";
 
-const ListGroup = (props) => {
-  const {items, textProperty, valueProperty, onItemSelect, selectedItem} = props;
+const ListGroup = ({items, textProperty, valueProperty, onItemSelect, selectedItem}) => {
   return (
     <ul className="list-group">
       {items.map(item => (
@@ -20,10 +18,6 @@ const ListGroup = (props) => {
 ListGroup.defaultProps = {
   textProperty: 'name',
   valueProperty: '_id'
-}
-
-ListGroup.propTypes = {
-
 }
 
 export default ListGroup;

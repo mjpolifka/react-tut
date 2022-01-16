@@ -1,8 +1,7 @@
 import propTypes from "prop-types";
 
-const Pagination = (props) => {
-  const {itemsCount, pageSize, onPageChange, currentPage} = props;
-  
+const Pagination = ({itemsCount, pageSize, onPageChange, currentPage}) => {
+
   const pagesCount = Math.round(itemsCount / pageSize);
   if (pagesCount === 1) return null;
 

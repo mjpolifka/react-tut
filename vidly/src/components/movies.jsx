@@ -24,14 +24,12 @@ class Movies extends Component {
   }
 
   render() { 
-    const { pageSize, currentPage, movies: allMovies, genres, selectedGenre, sortColumn } = this.state;
+    const { pageSize, currentPage, genres, selectedGenre, sortColumn } = this.state;
     const {length: count} = this.state.movies;
     
     if (count === 0) return <p>There are no movies in the database.</p>;
 
-    const filtered = selectedGenre && selectedGenre._id ? allMovies.filter(m => m.genre._id === selectedGenre._id) : allMovies;
-    const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
-    const movies = paginate(sorted, currentPage, pageSize);
+    const {totalCount, data: movies} = this.getPagedData();
 
     return (
       <div className='row'>
@@ -40,9 +38,9 @@ class Movies extends Component {
           />
         </div>
         <div className="col">
-          <p>Showing {filtered.length} movies in the database.</p>
+          <p>Showing {totalCount} movies in the database.</p>
           <MoviesTable movies={movies} sortColumn={sortColumn} onDelete={this.handleDelete} onLike={this.handleLike} onSort={this.handleSort} />
-          <Pagination itemsCount={filtered.length} pageSize={pageSize} currentPage={currentPage} onPageChange={this.handlePageChange} />
+          <Pagination itemsCount={totalCount} pageSize={pageSize} currentPage={currentPage} onPageChange={this.handlePageChange} />
         </div>
         
       </div>
@@ -72,6 +70,16 @@ class Movies extends Component {
 
   handleSort = (sortColumn) => {
     this.setState({sortColumn, currentPage: 1});
+  }
+
+  getPagedData = () => {
+    const { pageSize, currentPage, sortColumn, selectedGenre, movies: allMovies } = this.state;
+
+    const filtered = selectedGenre && selectedGenre._id ? allMovies.filter(m => m.genre._id === selectedGenre._id) : allMovies;
+    const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
+    const movies = paginate(sorted, currentPage, pageSize);
+
+    return {totalCount: filtered.length, data: movies};
   }
 }
  
