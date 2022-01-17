@@ -3,3 +3,5 @@ react-app/
 vidly/node_modules/
 router-app/node_modules/
 http-app/node_modules/
+vidly-api-node/node_modules/
+vidly-api-node/logfile.log
