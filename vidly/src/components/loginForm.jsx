@@ -1,19 +1,13 @@
 import React, { Component } from 'react';
+import Input from './common/input';
 
 class LoginForm extends Component {
     state = {
         account: { username: '', password: '' }
     }
-    // username = React.createRef();
-
-    // componentDidMount() {
-    //     this.username.current.focus();
-    // }
 
     handleSubmit = (e) => {
         e.preventDefault();
-
-        // const username = this.username.current.value;
     }
 
     handleChange = ({ currentTarget: input }) => {
@@ -29,27 +23,18 @@ class LoginForm extends Component {
                 <h1>Login</h1>
 
                 <form onSubmit={this.handleSubmit}>
-                    <div className="form-group">
-                        <label htmlFor="username">Username</label>
-                        <input
-                            value={account.username}
-                            onChange={this.handleChange}
-                            ref={this.username}
-                            id="username"
-                            name="username"
-                            type="text"
-                            className="form-control" />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="password">Password</label>
-                        <input
-                            value={account.password}
-                            onChange={this.handleChange}
-                            id="password"
-                            name="password"
-                            type="text"
-                            className="form-control" />
-                    </div>
+                    <Input
+                        name="username"
+                        label="Username"
+                        value={account.username}
+                        onChange={this.handleChange}
+                    />
+                    <Input
+                        name="password"
+                        label="Password"
+                        value={account.password}
+                        onChange={this.handleChange}
+                    />
                     <button className="btn btn-primary">Login</button>
                 </form>
             </div>
