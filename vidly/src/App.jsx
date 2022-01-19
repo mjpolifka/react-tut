@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'
+import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 import Movies from './components/movies';
 import Customers from './components/customers';
@@ -18,7 +18,7 @@ class App extends Component {
     return (
       <React.Fragment>
         <ToastContainer />
-        <NavBar></NavBar>
+        <NavBar />
         <main className="container">
           <Switch>
             <Route path="/register" component={RegisterForm} />
